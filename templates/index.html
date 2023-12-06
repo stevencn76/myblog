@@ -1,16 +1,21 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Home Page
+峰哥的博客 - 主页
 {% endblock %}
 
 
 {% block content %}
-Welcome to my blog
 <table border="1">
     <tr>
-        <th>aaa</th>
-        <th>bbb</th>
+        <th>标题</th>
+        <th>时间</th>
     </tr>
+    {% for article in articles %}
+    <tr>
+        <td><a href="/article/{{ article.id }}.html">{{ article.title}}</a></td>
+        <td>{{ article.create_time}}</td>
+    </tr>
+    {% endfor %}
 </table>
 {% endblock %}

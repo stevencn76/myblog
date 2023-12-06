@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}
+峰哥的博客 - {{ article.title }}
+{% endblock %}
+
+
+{% block content %}
+{{ article.title }} <br/>
+发布于: {{ article.create_time }}<br/>
+{{ article.content }}
+{% endblock %}
