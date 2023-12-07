@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title%}
+    峰哥博客 - 登陆
+{% endblock %}
+{% block content %}
+<div  class="container-xl">
+    <form method="POST" class="form-signin">
+        {{ form.hidden_tag() }}
+        <h1 class="h3 mb-3 font-weight-normal">
+            博客管理员登陆
+        </h1>
+        <br>
+        {{ form.username.label() }}
+        {{ form.username(class="form-control", placeholder="输入用户名") }}
+
+        {{ form.password.label() }}
+        {{ form.password(class="form-control", placeholder="输入密码") }}
+
+        <br>
+
+        {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+
+    </form>
+</div>
+{% endblock %}
