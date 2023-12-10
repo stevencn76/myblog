@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title%}
+    峰哥博客 - 添加新文章
+{% endblock %}
+{% block content %}
+<style>
+    .content_height {
+        height: 550px;
+    }
+</style>
+<div  class="container-fluid px-4 py-4">
+    <form method="POST" class="form-signin">
+        {{ form.hidden_tag() }}
+        <h1 class="h3 mb-3 font-weight-normal">添加新文章</h1>
+        <br>
+        {{ form.title.label() }}
+        {{ form.title(class="form-control", placeholder="输入标题") }}
+        {{ form.content.label() }}
+        {{ form.content(class="form-control content_height", placeholder="输入文章内容") }}
+        <br>
+        {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+    </form>
+</div>
+{% endblock %}
