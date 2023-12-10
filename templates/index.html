@@ -6,16 +6,34 @@
 
 
 {% block content %}
-<table border="1">
-    <tr>
-        <th>标题</th>
-        <th>时间</th>
-    </tr>
+<div  class="container-xl">
     {% for article in articles %}
-    <tr>
-        <td><a href="/article/{{ article.id }}.html">{{ article.title}}</a></td>
-        <td>{{ article.create_time}}</td>
-    </tr>
+    <div class="card mt-4" style="background-color: #ecf2f9">
+        <div class="card-header">
+            <ul class="nav">
+                <li class="nav-item me-auto">
+                    <a class="btn fs-5 fw-bold" href="article/{{ article.id }}.html">{{ article.title }}</a>
+                </li>
+                {% if current_user.is_authenticated %}
+                <li class="nav-item px-1">
+                    <small class="text-body-secondary">
+                        <a class="btn" href="/editarticle/{{ article.id }}.html">编辑</a>
+                    </small>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                <a class="btn fs-6" href="article/{{ article.id }}.html">{{ article.content }}</a>
+            </p>
+            <ul class="nav">
+                <li class="nav-item ms-auto">
+                    <small class="text-body-secondary">发布时间: {{ article.create_time }}</small>
+                </li>
+            </ul>
+        </div>
+    </div>
     {% endfor %}
-</table>
+</div>
 {% endblock %}

@@ -1,6 +1,6 @@
 from models.article import Article
 from routes import db
-from sqlalchemy import Select
+from sqlalchemy import Select, func
 
 
 class ArticleService:
@@ -13,8 +13,27 @@ class ArticleService:
         return db.session.scalars(query).all()
 
     def create_article(self, article: Article):
-        # todo: 添加同标题文章是否存在的检测，如果数据库中存在了相同标题的文章，那么这里抛出一个异常
+        query = Select(Article).where(Article.title == article.title)
+        exist_articles = db.session.scalars(query)
+        if exist_articles:
+            return article, '同标题的文章已经存在'
+
         db.session.add(article)
         db.session.commit()
 
-        return article
+        return article, None
+
+    def update_article(self, article: Article):
+        exist_article = db.session.get(Article, article.id)
+        if not exist_article:
+            return article, '文章不存在'
+
+        # TODO: 检查同标题的文章是否存在
+
+        exist_article.title = article.title
+        exist_article.content = article.content
+        exist_article.update_time = func.now()
+
+        db.session.commit()
+
+        return article, None
