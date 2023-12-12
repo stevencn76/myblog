@@ -1,0 +1,24 @@
+<!-- Delete Article Confirm -->
+<div class="modal fade" id="Modal-DeleteConfirm-{{ article.id }}"
+     tabindex="-1"
+     aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">{{ article.title }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="POST">
+        {{ delete_article_form.csrf_token() }}
+        {{ delete_article_form.article_id(value=article.id) }}
+        <div class="modal-body">
+          <h4 class="text-center">确实要删除"{{ article.title }}"吗?</h4>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">确定</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

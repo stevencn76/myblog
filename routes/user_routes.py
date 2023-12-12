@@ -1,5 +1,6 @@
-from flask_login import logout_user
+from flask_login import logout_user, current_user
 
+from forms.delete_article_form import DeleteArticleForm
 from forms.login_form import LoginForm
 from routes import app
 from flask import render_template, abort, redirect, url_for, flash
@@ -7,10 +8,25 @@ from services.article_service import ArticleService
 from services.user_service import UserService
 
 
-@app.route('/')
-@app.route('/index.html')
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/index.html', methods=['GET', 'POST'])
 def home_page():
+    if current_user.is_authenticated:
+        delete_article_form = DeleteArticleForm()
+        if delete_article_form.validate_on_submit():
+            if delete_article_form.validate_on_submit():
+                result, error = ArticleService().delete_article(int(delete_article_form.article_id.data))
+                if result:
+                    flash(f'成功删除文章', category='success')
+                    return redirect(url_for('home_page'))
+                else:
+                    flash(f'删除文章失败: {error}', category='danger')
+
     articles = ArticleService().get_articles()
+
+    if current_user.is_authenticated:
+        return render_template('index.html', articles=articles, delete_article_form=delete_article_form)
+
     return render_template('index.html', articles=articles)
 
 
