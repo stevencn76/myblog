@@ -4,9 +4,12 @@
 峰哥的博客 - {{ article.title }}
 {% endblock %}
 
-
 {% block content %}
-{{ article.title }} <br/>
-发布于: {{ article.create_time }}<br/>
-{{ article.content }}
+<textarea id="article_content" style="display: none">{{ article.content }}</textarea>
+<div  class="container-xl">
+    <h4><p class="text-center" style="margin-top: 20px;">{{ article.title }}</p></h4>
+    <p class="text-center" style="margin-top: 10px;">最后更新: {{ article.update_time }}</p>
+    <p id="article_viewer"></p>
+</div>
+<script src="/assets/js/article.js"></script>
 {% endblock %}
