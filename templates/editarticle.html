@@ -26,10 +26,22 @@
         <br>
         {{ form.title.label() }}
         {{ form.title(class="form-control", placeholder="输入标题") }}
-        {{ form.content.label() }}
-        {{ form.content(class="form-control content_height", placeholder="输入文章内容") }}
-        <br>
-        {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+        <div class="row">
+            <div class="col">
+                {{ form.content.label() }}
+                {{ form.content(class="form-control content_height", placeholder="输入文章内容") }}
+                <br>
+                {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+                <a href="#" id="article_preview_btn" class="btn btn-lg btn-block btn-primary">预览</a>
+            </div>
+            <div class="col">
+                文章预览
+                <div class="container-fluid border border-success">
+                    <div id="article_preview" class="content_height" style="overflow: auto;"></div>
+                </div>
+            </div>
+        </div>
     </form>
 </div>
+<script src="/assets/js/editarticle.js"></script>
 {% endblock %}
