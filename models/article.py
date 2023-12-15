@@ -9,7 +9,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 class Article(db.Model):
     __tablename__ = 'articles'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    title: Mapped[str] = mapped_column(String, unique=True, nullable=False)
+    title: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
     __content: Mapped[bytes] = mapped_column(BLOB, name="content", nullable=False)
     create_time: Mapped[datetime] = mapped_column(TIMESTAMP, nullable=False, server_default=func.now())
     update_time: Mapped[datetime] = mapped_column(TIMESTAMP, nullable=True, server_default=func.now())
