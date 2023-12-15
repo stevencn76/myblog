@@ -1,7 +1,11 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_required
+from werkzeug.utils import secure_filename
 
+from common import utils
+from common.profile import Profile
 from forms.article_form import ArticleForm
+from forms.image_upload_form import ImageUploadForm
 from models.article import Article
 from routes import app
 from services.article_service import ArticleService
@@ -63,3 +67,21 @@ def edit_article_page(article_id: str):
             flash(f'修改文章失败: {error}', category='danger')
 
     return render_template('editarticle.html', form=form, is_edit=True)
+
+
+@app.route('/images.html', methods=['GET', 'POST'])
+@login_required
+def images_page():
+    form = ImageUploadForm()
+
+    if form.validate_on_submit():
+        image_file = form.image_file.data
+
+        images_path = Profile.get_images_path()
+        image_filename = secure_filename(image_file.filename)
+        image_fullpath = utils.get_save_filepath(images_path, image_filename)
+
+        image_file.save(image_fullpath)
+        flash(f'图片保存为: {image_fullpath}', category='success')
+
+    return render_template('images.html', form=form)
