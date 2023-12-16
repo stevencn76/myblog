@@ -1,9 +1,10 @@
 from flask_login import logout_user, current_user
 
+from common.profile import Profile
 from forms.delete_article_form import DeleteArticleForm
 from forms.login_form import LoginForm
 from routes import app
-from flask import render_template, abort, redirect, url_for, flash
+from flask import render_template, abort, redirect, url_for, flash, send_from_directory
 from services.article_service import ArticleService
 from services.user_service import UserService
 
@@ -61,3 +62,13 @@ def login_page():
 def logout_page():
     logout_user()
     return redirect(url_for('home_page'))
+
+
+@app.route('/image/<image_filename>')
+def download_image(image_filename: str):
+    image_path = Profile.get_images_path()
+    image_filepath = image_path.joinpath(image_filename)
+    if not image_filepath:
+        return abort(404)
+
+    return send_from_directory(directory=image_path, path=image_filename)

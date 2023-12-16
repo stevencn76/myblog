@@ -15,5 +15,17 @@
         {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
 
     </form>
+    <hr />
+    <div class="row">
+        {% if image_filenames %}
+            {% for image_file in image_filenames %}
+                <div class="col-md-3">
+                    <b>/image/{{ image_file }}</b>
+                    <img src="/image/{{ image_file }}" class="img-thumbnail my-2" style="width: 300px; height: 200px;" />
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
 </div>
 {% endblock %}

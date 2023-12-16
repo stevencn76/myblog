@@ -9,6 +9,7 @@ from forms.image_upload_form import ImageUploadForm
 from models.article import Article
 from routes import app
 from services.article_service import ArticleService
+from services.image_service import ImageService
 
 
 @app.route('/createarticle.html', methods=['GET', 'POST'])
@@ -84,4 +85,6 @@ def images_page():
         image_file.save(image_fullpath)
         flash(f'图片保存为: {image_fullpath}', category='success')
 
-    return render_template('images.html', form=form)
+    image_filenames = ImageService().get_image_filename_list()
+
+    return render_template('images.html', form=form, image_filenames=image_filenames)
